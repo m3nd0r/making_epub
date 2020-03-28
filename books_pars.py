@@ -11,10 +11,16 @@ book = epub.EpubBook()
 driver = webdriver.Chrome()
 driver.get(config.main_url)
 
+"""
+Не забыть создать config.py и положить туда переменные:
+main_url - ссылка на страницу книги на author.today
+login - логин на author.today 
+pswd - пароль на author.today
+"""
 
 # Авторизуемся на АТ с заданными логином и паролем
 def auth():
-    driver.find_element_by_xpath('//a[@onclick="app.showLoginModal();"]').click()
+    driver.find_element_by_xpath('//*[@id="navbar-right"]/li[2]/a').click()
     time.sleep(1)
     driver.find_element_by_xpath('//*[@id="authModal"]/div/div/div[2]/div/div/div/div/form/button[1]').click()
 
@@ -78,10 +84,7 @@ for i in range(chapter_col):
 
     driver.find_element_by_xpath('//a[@data-bind="click: goToChapter.bind($data, nextChapter())"]').click()
 
-
 book.add_item(epub.EpubNcx())
 book.add_item(epub.EpubNav())
 
-
-if __name__ == '__main__':
-    epub.write_epub('1.epub', book, {})
+epub.write_epub('123.epub', book, {})
